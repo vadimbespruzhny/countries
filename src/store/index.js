@@ -9,6 +9,7 @@ export default createStore({
         regions: [],
         selectedCountry: null,
         searchQuery: "",
+        isLoading: false,
     }),
     mutations: {
         switchTheme(state) {
@@ -16,8 +17,10 @@ export default createStore({
         },
         setCountriesInfo(state, payload) {
             state.countryInfo = payload.slice(0, 20);
+            state.selectedCountry = null;
         },
         searchCountry(state, payload) {
+            console.log(payload[0]);
             if (state.searchQuery) {
                 state.countryInfo = payload;
                 return;
@@ -31,32 +34,35 @@ export default createStore({
         setSearchQuery(state, payload) {
             state.searchQuery = payload;
         },
-    },
-    getters: {
-        getImage(state) {
-            if (!state.selectedCountry) {
-                return "";
-            }
-            return state.selectedCountry.flags.png;
+        setLoading(state, payload) {
+            state.isLoading = payload;
         },
     },
     actions: {
         async fetchCountries({ commit }) {
             try {
+                commit("setLoading", true);
                 const { data } = await axiosInstance.get("all");
                 commit("setCountriesInfo", data);
                 commit("setRegions", data);
             } catch (error) {
                 console.log(error);
+                commit("setLoading", false);
+            } finally {
+                commit("setLoading", false);
             }
         },
         async fetchCountry({ commit }, searchQuery) {
             try {
+                commit("setLoading", true);
                 const queryString = `name/${searchQuery}`;
                 const { data } = await axiosInstance.get(queryString);
                 commit("searchCountry", data);
             } catch (error) {
                 console.log(error);
+                commit("setLoading", false);
+            } finally {
+                commit("setLoading", false);
             }
         },
         async filterByRegion({ commit }, selectedValue) {

@@ -1,6 +1,5 @@
 <template>
     <NavigationBar />
-
     <div class="allCountries">
         <router-link
             v-for="item in countryInfo"
