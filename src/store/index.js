@@ -20,7 +20,6 @@ export default createStore({
             state.selectedCountry = null;
         },
         searchCountry(state, payload) {
-            console.log(payload[0]);
             if (state.searchQuery) {
                 state.countryInfo = payload;
                 return;
