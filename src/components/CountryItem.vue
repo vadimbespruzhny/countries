@@ -5,69 +5,75 @@
                 <button :class="{ darkmodeButton: isDark }">Back</button>
             </router-link>
         </div>
-        <div class="countryItem" v-if="selectedCountry">
-            <img :src="`${selectedCountry.flags.png}`" alt="flag" />
-            <div class="info">
-                <div class="main-info">
-                    <div class="country-name">
-                        <div>{{ selectedCountry.name.common }}</div>
-                    </div>
-                    <div class="native-name">
-                        Native Name:
-                        <div class="native-name-text">
-                            {{ selectedCountry.name.common }}
+        <div v-if="selectedCountry">
+            <div class="countryItem" v-for="(country, index) in selectedCountry" :key="index">
+                <img :src="`${country.flags.png}`" alt="flag" />
+                <div class="info">
+                    <div class="main-info">
+                        <div class="country-name">
+                            <div>{{ country.name.common }}</div>
+                        </div>
+                        <div class="native-name">
+                            Native Name:
+                            <div class="native-name-text">
+                                {{ country.name.common }}
+                            </div>
+                        </div>
+                        <div class="population">
+                            Population:
+                            <div class="population-text">
+                                {{ country.population }}
+                            </div>
+                        </div>
+                        <div class="region">
+                            Region:
+                            <div class="region-text">
+                                {{ country.region }}
+                            </div>
+                        </div>
+                        <div class="sub-region">
+                            Sub-region:
+                            <div class="sub-region-text">
+                                {{ country.subregion }}
+                            </div>
+                        </div>
+                        <div class="capital">
+                            Capital:
+                            <div class="capital-text">
+                                {{ country.capital[0] }}
+                            </div>
                         </div>
                     </div>
-                    <div class="population">
-                        Population:
-                        <div class="population-text">
-                            {{ selectedCountry.population }}
+                    <div class="side-info">
+                        <div class="tld">
+                            Top Level Domain:
+                            <div
+                                class="tld-text"
+                                v-for="domain in country.tld"
+                                :key="domain"
+                            >
+                                {{ domain }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="region">
-                        Region:
-                        <div class="region-text">
-                            {{ selectedCountry.region }}
+                        <div class="currencies">
+                            Currencies:
+                            <div
+                                class="currencies-text"
+                                v-for="currency in country.currencies"
+                                :key="currency"
+                            >
+                                {{ currency.name }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="sub-region">
-                        Sub-region:
-                        <div class="sub-region-text">
-                            {{ selectedCountry.subregion }}
-                        </div>
-                    </div>
-                    <div class="capital">
-                        Capital:
-                        <div class="capital-text">
-                            {{ selectedCountry.capital[0] }}
-                        </div>
-                    </div>
-                </div>
-                <div class="side-info">
-                    <div class="tld">
-                        Top Level Domain:
-                        <div class="tld-text" v-for="domain in selectedCountry.tld" :key="domain">
-                            {{ domain }}
-                        </div>
-                    </div>
-                    <div class="currencies">
-                        Currencies:
-                        <div
-                            class="currencies-text"
-                            v-for="currency in selectedCountry.currencies"
-                            :key="currency"
-                        >
-                            {{ currency.name }}
-                        </div>
-                    </div>
-                    <div class="languages">
-                        Languages:
-                        <div
-                            class="languages-text"
-                            v-for="lang in selectedCountry.languages"
-                            :key="lang"
-                        >
-                            {{ lang }}
+                        <div class="languages">
+                            Languages:
+                            <div
+                                class="languages-text"
+                                v-for="lang in country.languages"
+                                :key="lang"
+                            >
+                                {{ lang }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -110,13 +116,16 @@ export default {
 button {
     height: 35px;
     width: 100px;
-    padding-left: 15px;
     border: none;
     outline: none;
     box-shadow: 0px 0px 15px rgba(184, 184, 184, 0.5);
     border-radius: 4px;
     font-family: "Nunito Sans", sans-serif;
-    font-size: 14px;
+    font-weight: 600    ;
+    font-size: 16px;
+}
+button:hover {
+    box-shadow: 0px 0px 15px rgba(122, 122, 122, 0.5);
 }
 .darkmodeButton {
     background-color: hsl(209, 23%, 22%);

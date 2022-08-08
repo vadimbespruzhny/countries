@@ -16,15 +16,17 @@ export default createStore({
             state.isDark = !state.isDark;
         },
         setCountriesInfo(state, payload) {
-            state.countryInfo = payload.slice(0, 20);
+            state.countryInfo = payload;
             state.selectedCountry = null;
         },
         searchCountry(state, payload) {
             if (state.searchQuery) {
                 state.countryInfo = payload;
+                state.selectedCountry = payload;
                 return;
             }
-            state.selectedCountry = payload[0];
+            state.selectedCountry = payload;
+
         },
         setRegions(state, payload) {
             const regionsList = [...new Set(payload.map((country) => country.region))];
