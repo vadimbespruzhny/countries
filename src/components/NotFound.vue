@@ -15,7 +15,7 @@
 
 <style scoped>
 .notFound {
-    font-size: 25px;
+    font-size: 45px;
     margin-bottom: 25px;
 }
 </style>
